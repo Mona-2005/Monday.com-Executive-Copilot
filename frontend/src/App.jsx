@@ -87,12 +87,12 @@ function AppContent() {
         />
       )}
 
-      {/* Sidebar - Collapsible on Mobile, Fixed on Desktop */}
+      {/* Sidebar - Hidden on mobile by default, Drawer when opened, Fixed on Desktop */}
       <aside className={`
         fixed lg:static inset-y-0 left-0 z-50 w-64 
         bg-light-card dark:bg-dark-card border-r border-light-border dark:border-dark-border 
-        flex flex-col justify-between shrink-0 no-print transition-transform duration-300 ease-in-out
-        ${mobileMenuOpen ? 'translate-x-0 shadow-2xl' : '-translate-x-full lg:translate-x-0'}
+        flex flex-col justify-between shrink-0 no-print transition-all duration-300 ease-in-out
+        ${mobileMenuOpen ? 'translate-x-0 shadow-2xl' : '-translate-x-full lg:translate-x-0 hidden lg:flex'}
       `}>
         {/* Sidebar Logo */}
         <div>
