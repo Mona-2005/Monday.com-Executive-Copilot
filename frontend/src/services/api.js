@@ -1,9 +1,10 @@
 import axios from 'axios';
 
-// Dynamically set API URL. Uses VITE_API_URL if provided, else falls back to '/api' for Vite dev proxy.
+// Dynamically set API URL. Uses VITE_API_URL if provided, else falls back to live Render backend in production.
+const defaultRenderBackend = 'https://monday-com-executive-copilot.onrender.com';
 const API_BASE = import.meta.env.VITE_API_URL 
   ? `${import.meta.env.VITE_API_URL.replace(/\/$/, '')}/api` 
-  : '/api';
+  : (import.meta.env.PROD ? `${defaultRenderBackend}/api` : '/api');
 
 const api = axios.create({
   baseURL: API_BASE,
