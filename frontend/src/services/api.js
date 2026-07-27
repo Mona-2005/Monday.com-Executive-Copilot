@@ -1,10 +1,15 @@
 import axios from 'axios';
 
-// Dynamically set API URL. Uses VITE_API_URL if provided, else falls back to live Render backend in production.
-const defaultRenderBackend = 'https://monday-com-executive-copilot.onrender.com';
-const API_BASE = import.meta.env.VITE_API_URL 
-  ? `${import.meta.env.VITE_API_URL.replace(/\/$/, '')}/api` 
-  : (import.meta.env.PROD ? `${defaultRenderBackend}/api` : '/api');
+// Dynamically set API URL with robust domain sanitization
+const defaultBackend = 'https://monday-com-executive-copilot.onrender.com';
+let rawUrl = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? defaultBackend : '');
+
+// If URL got duplicated or malformed in Vercel settings, clean it
+if (rawUrl.includes('https://monday-com-executive-copilot.onrender.com')) {
+  rawUrl = defaultBackend;
+}
+
+const API_BASE = rawUrl ? `${rawUrl.replace(/\/$/, '').replace(/\/api$/, '')}/api` : '/api';
 
 const api = axios.create({
   baseURL: API_BASE,
