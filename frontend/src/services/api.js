@@ -1,7 +1,9 @@
 import axios from 'axios';
 
-// Dynamically set API URL. In dev it will proxy via Vite, in production it will call relatively.
-const API_BASE = '/api';
+// Dynamically set API URL. Uses VITE_API_URL if provided, else falls back to '/api' for Vite dev proxy.
+const API_BASE = import.meta.env.VITE_API_URL 
+  ? `${import.meta.env.VITE_API_URL.replace(/\/$/, '')}/api` 
+  : '/api';
 
 const api = axios.create({
   baseURL: API_BASE,
