@@ -1,5 +1,12 @@
 import os
+import sys
 import logging
+
+# Ensure project root is in sys.path so 'import backend' works regardless of working directory
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
+
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
