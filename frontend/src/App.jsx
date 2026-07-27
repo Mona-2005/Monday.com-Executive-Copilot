@@ -74,21 +74,45 @@ function AppContent() {
     { path: '/settings', label: 'System Settings', icon: SettingsIcon },
   ];
 
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
     <div className="flex h-screen bg-light-bg dark:bg-dark-bg text-light-text dark:text-dark-text overflow-hidden transition-colors duration-200">
       
-      {/* Sidebar - HIDDEN in print */}
-      <aside className="w-64 bg-light-card dark:bg-dark-card border-r border-light-border dark:border-dark-border flex flex-col justify-between shrink-0 no-print">
+      {/* Mobile Drawer Overlay */}
+      {mobileMenuOpen && (
+        <div 
+          className="fixed inset-0 bg-black/60 z-40 lg:hidden backdrop-blur-sm"
+          onClick={() => setMobileMenuOpen(false)}
+        />
+      )}
+
+      {/* Sidebar - Collapsible on Mobile, Fixed on Desktop */}
+      <aside className={`
+        fixed lg:static inset-y-0 left-0 z-50 w-64 
+        bg-light-card dark:bg-dark-card border-r border-light-border dark:border-dark-border 
+        flex flex-col justify-between shrink-0 no-print transition-transform duration-300 ease-in-out
+        ${mobileMenuOpen ? 'translate-x-0 shadow-2xl' : '-translate-x-full lg:translate-x-0'}
+      `}>
         {/* Sidebar Logo */}
         <div>
-          <div className="p-6 border-b border-light-border dark:border-dark-border flex items-center space-x-2.5">
-            <div className="p-2 bg-primary/20 text-primary rounded-lg">
-              <Sparkles className="w-5 h-5 animate-pulse" />
+          <div className="p-6 border-b border-light-border dark:border-dark-border flex items-center justify-between">
+            <div className="flex items-center space-x-2.5">
+              <div className="p-2 bg-primary/20 text-primary rounded-lg">
+                <Sparkles className="w-5 h-5 animate-pulse" />
+              </div>
+              <div>
+                <h1 className="text-xs font-black uppercase tracking-wider text-light-text dark:text-dark-text">Monday.com</h1>
+                <p className="text-[10px] font-semibold text-primary dark:text-primary leading-none mt-0.5">EXECUTIVE COPILOT</p>
+              </div>
             </div>
-            <div>
-              <h1 className="text-xs font-black uppercase tracking-wider text-light-text dark:text-dark-text">Monday.com</h1>
-              <p className="text-[10px] font-semibold text-primary dark:text-primary leading-none mt-0.5">EXECUTIVE COPILOT</p>
-            </div>
+            {/* Close button on mobile */}
+            <button 
+              onClick={() => setMobileMenuOpen(false)}
+              className="lg:hidden p-1 rounded-lg text-light-muted dark:text-dark-muted hover:text-light-text dark:hover:text-dark-text"
+            >
+              ✕
+            </button>
           </div>
 
           {/* Navigation Links */}
@@ -100,6 +124,7 @@ function AppContent() {
                 <Link 
                   key={item.path} 
                   to={item.path}
+                  onClick={() => setMobileMenuOpen(false)}
                   className={`flex items-center space-x-3 px-3 py-2.5 rounded-lg text-xs font-semibold transition-all ${
                     isActive 
                       ? 'bg-primary text-white shadow-md shadow-primary/20' 
@@ -155,23 +180,33 @@ function AppContent() {
       </aside>
 
       {/* Main Workspace Frame */}
-      <main className="flex-1 flex flex-col overflow-hidden">
-        {/* Top Header Navbar - HIDDEN in print */}
-        <header className="h-16 border-b border-light-border dark:border-dark-border bg-light-card dark:bg-dark-card px-6 flex justify-between items-center shrink-0 no-print">
-          <div>
-            <h2 className="text-sm font-bold text-light-text dark:text-dark-text">
+      <main className="flex-1 flex flex-col overflow-hidden w-full">
+        {/* Top Header Navbar - Mobile Responsive */}
+        <header className="h-16 border-b border-light-border dark:border-dark-border bg-light-card dark:bg-dark-card px-4 lg:px-6 flex justify-between items-center shrink-0 no-print">
+          <div className="flex items-center space-x-3">
+            {/* Hamburger Button for Mobile */}
+            <button 
+              onClick={() => setMobileMenuOpen(true)}
+              className="lg:hidden p-2 rounded-lg bg-light-hover dark:bg-dark-hover text-light-text dark:text-dark-text"
+              aria-label="Open Navigation Menu"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+            <h2 className="text-sm font-bold text-light-text dark:text-dark-text truncate">
               {navItems.find(n => n.path === location.pathname)?.label || 'Workspace'}
             </h2>
           </div>
 
           {/* System Date Badge */}
           <div className="flex items-center space-x-4 text-xs font-semibold text-light-muted dark:text-dark-muted">
-            <span>July 27, 2026</span>
+            <span className="hidden sm:inline">July 27, 2026</span>
           </div>
         </header>
 
         {/* Content Body Container */}
-        <div className="flex-1 overflow-y-auto p-6 bg-light-bg dark:bg-dark-bg">
+        <div className="flex-1 overflow-y-auto p-4 lg:p-6 bg-light-bg dark:bg-dark-bg">
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/chat" element={<AIChat />} />
