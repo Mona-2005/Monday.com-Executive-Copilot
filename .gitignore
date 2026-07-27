@@ -1,0 +1,116 @@
+# ============================================================
+# Monday.com Executive Copilot — .gitignore
+# ============================================================
+
+# ─── Secrets & Environment ───────────────────────────────────
+.env
+.env.example
+
+.env.local
+.env.production
+*.secret
+
+# ─── Python ──────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+.Python
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+.virtualenv/
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+*.egg
+.eggs/
+wheels/
+
+# Testing & coverage
+.pytest_cache/
+.coverage
+htmlcov/
+coverage.xml
+*.coveragerc
+nosetests.xml
+
+# Jupyter / IPython
+.ipynb_checkpoints/
+
+# Type checkers & linters
+.mypy_cache/
+.dmypy.json
+.ruff_cache/
+.pyright/
+
+# ─── Node.js / Frontend ──────────────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-store/
+
+# Vite / build output
+frontend/dist/
+.vite/
+
+# ─── Backend Static Build Output ─────────────────────────────
+# Built React files that get copied here via `npm run build`
+backend/static/assets/
+backend/static/*.js
+backend/static/*.css
+backend/static/*.html
+
+# ─── OS & Editor artifacts ───────────────────────────────────
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+
+# VS Code
+.vscode/
+!.vscode/extensions.json
+
+# JetBrains IDEs (PyCharm, WebStorm, etc.)
+.idea/
+*.iml
+
+# Vim / Emacs
+*.swp
+*.swo
+*.bak
+*~
+
+# ─── Logs ────────────────────────────────────────────────────
+*.log
+logs/
+*.log.*
+
+# ─── Test / Scratch files ────────────────────────────────────
+test_gemini.py
+test_backend.py
+scratch/
+
+# ─── Misc ────────────────────────────────────────────────────
+*.tmp
+*.temp
+.cache/

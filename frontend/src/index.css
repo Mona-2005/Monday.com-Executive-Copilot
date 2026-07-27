@@ -1,0 +1,138 @@
+@import "tailwindcss";
+
+@theme {
+  --color-dark-bg: #090D1A;
+  --color-dark-card: #121829;
+  --color-dark-border: #1E2943;
+  --color-dark-hover: #192239;
+  --color-dark-text: #F3F4F6;
+  --color-dark-muted: #9CA3AF;
+
+  --color-light-bg: #F9FAFB;
+  --color-light-card: #FFFFFF;
+  --color-light-border: #E5E7EB;
+  --color-light-hover: #F3F4F6;
+  --color-light-text: #111827;
+  --color-light-muted: #6B7280;
+
+  --color-primary: #00C6FF;
+  --color-primary-dark: #0072FF;
+  --color-primary-light: #E6F9FF;
+
+  --color-accent-pink: #EC4899;
+  --color-accent-purple: #8B5CF6;
+  --color-accent-emerald: #10B981;
+  --color-accent-amber: #F59E0B;
+  --color-accent-red: #EF4444;
+
+  --font-sans: 'Inter', sans-serif;
+  
+  --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Glassmorphism Styles */
+.glass {
+  background: rgba(18, 24, 41, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-light {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background: rgba(107, 114, 128, 0.3);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(107, 114, 128, 0.5);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(156, 163, 175, 0.15);
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(156, 163, 175, 0.35);
+}
+
+/* Typing Indicator Animation */
+.dot-flashing {
+  position: relative;
+  width: 6px;
+  height: 6px;
+  border-radius: 5px;
+  background-color: #00C6FF;
+  color: #00C6FF;
+  animation: dot-flashing 1s infinite linear alternate;
+  animation-delay: .5s;
+}
+.dot-flashing::before, .dot-flashing::after {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  top: 0;
+}
+.dot-flashing::before {
+  left: -12px;
+  width: 6px;
+  height: 6px;
+  border-radius: 5px;
+  background-color: #00C6FF;
+  color: #00C6FF;
+  animation: dot-flashing 1s infinite linear alternate;
+  animation-delay: 0s;
+}
+.dot-flashing::after {
+  left: 12px;
+  width: 6px;
+  height: 6px;
+  border-radius: 5px;
+  background-color: #00C6FF;
+  color: #00C6FF;
+  animation: dot-flashing 1s infinite linear alternate;
+  animation-delay: 1s;
+}
+
+@keyframes dot-flashing {
+  0% {
+    opacity: 0.2;
+  }
+  50%, 100% {
+    opacity: 1;
+  }
+}
+
+/* Print/PDF Export Media Queries */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+  .card-print {
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    page-break-inside: avoid;
+  }
+}
