@@ -15,8 +15,12 @@ from pydantic import BaseModel
 from dotenv import load_dotenv
 
 # Import routes and services
-from backend.routes import monday, analytics, chat, briefs
-from backend.models.schemas import SettingsUpdateRequest
+try:
+    from backend.routes import monday, analytics, chat, briefs
+    from backend.models.schemas import SettingsUpdateRequest
+except ModuleNotFoundError:
+    from routes import monday, analytics, chat, briefs
+    from models.schemas import SettingsUpdateRequest
 
 # Load env variables
 load_dotenv(override=True)
